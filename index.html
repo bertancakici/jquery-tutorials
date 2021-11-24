@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <hename>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <title>Hello, world!</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+  </hename>
+  <body>
+
+    <div class="container">
+      <div class="row">
+        
+        <div class="col">
+          <h1 id="name" >Merhaba</h1>
+        </div>
+        <div class="col">
+          <select id="mySel">
+            <option value="f">Feyza</option>
+            <option value="be">Berke</option>
+            <option value="bn">Bertan</option>
+          </select>
+          <select id="mySel2">
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+          </select>
+        </div>
+        <button id="btnValGetir">1.Select</button>
+        <button id="btnValGetir2">2.Select</button>
+      </div>
+    </div>
+
+    <script>
+    $(function(){
+    
+      /* selected value*/
+      // $("#btnValGetir").click(function(){
+      //     var val = $("#mySel option:selected").val();
+      //     console.log(val);
+      //     var txt = $("#mySel option:selected").text();
+      //     console.log(txt);
+      // });
+      /* selected value*/
+
+      /* onchange*/
+      // $(".mySel").on("change",function(e){
+      //   // console.log(this);
+      //   // var element = $(this);
+      //   // var element = $(this).get(0).selectedIndex;
+      //   // var si = e.target.selectedIndex;
+      //   // var selectedValue = e.target[si].value;
+      //   // console.log(selectedValue);
+      // });
+
+      // var selects = $(".mySel");
+      // console.log(selects.get(1));
+
+
+      /* onclick */
+      // $("#name").on("click",rengiDegistir);
+      // $("#name").on("click",function(event){
+      //   // console.log(event);
+      //   var el = event.target.id;
+      //   console.log(el);
+      // });
+      /* onclick */
+
+
+
+      /* val,html,text arasındaki fark */
+      // $("#name").text("Merhaba");
+      // var htmlString = "<span>Hello</span>";
+      // $("#name").html(htmlString);
+      // $("#name").html("Merhaba");
+      // $("#name").val("Merhaba");
+      /* val,html,text arasındaki fark */
+    });
+
+    function rengiDegistir(){
+      $(this).css("color","red");
+      // get css value;
+      // var elCss = $(this).css("font-size");
+      // console.log("elementin rengi:", elCss);
+    }
+
+    </script>
+
+
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  </body>
+</html>
