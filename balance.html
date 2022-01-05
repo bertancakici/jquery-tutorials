@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>Hello, world!</title>
+    <style>
+      .table td, .table th {
+        padding: 0.2rem;
+      }
+    </style>
+    <script src="jquery-3-5-1.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h6 >Toplam SFF Miktarı : <span id="SFFBalance" 0 $SFF ></span></h1>
+        </div>
+        <div class="col">
+          <h6 >Toplam MTC Miktarı : <span id="MTCBalance" 0 MATIC ></span></h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+            <table id="result" class="table">
+              <thead>
+                <tr>
+                  <td>#</td>
+                  <td>SFF Amount</td>
+                  <td>MTC Amount</td>
+                </tr>
+              </thead>
+              <tbody>
+
+              </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const AddrList = [
+        "0x178749b059913d8a3944719bb78b819bf5b95cc8",
+        "0x96bd0db44fccfb487ffb6a7002a385b019b236c8",
+        "0xd06ffcf0008f9677839f97d04ef9aaace17ca135",
+        "0xeded469b3669ff63bfcee65ea3f60f5b3cfd3fc3",
+        "0x0044d3f711448df0745fba6567d31b91483862fb",
+        "0x18a50a86e551d28687705ab6d9b8a37c38d08a4e",
+        "0xebcb90458bde4509385a04fc3cc90b5fb803229b",
+        "0xd4c8c6ee5939a99283fe7bd1ed132d9e19c52894",
+        "0xffaa0814094b5beae7e52b1e587f0e1e3d22817d",
+        "0xe321896960ce46bb82fb2285d6fb859be20d5413",
+        "0xe23a18e680674a6034b6605b139f893a27bb4cfb",
+        "0xc61a4a14f383bf15b309e0500c7e11324eec0ac5",
+        "0x6209ff6f0406c6d1efe28920b78cbb194883424e",
+        "0xf05d6572e1d8f0ae32cf388fb47f48f2f4a031ba",
+        "0x19d90ec935a71a9bd2ff6ac043daaadd886321bd",
+        "0x04bd038c5d8492ba1f8f436417f4d6f13705170d",
+        "0x97c2e64af9a2a1349fd03f0adf79465f497ecd86",
+        "0xb29fbae962e520d0d4269f40e3f08337911b64c6",
+        "0x60d188d7c1223d99d732cdd48ef22b2295a15bf5",
+        "0x62368c7bf557921e90272820d418c043ad3cb3b9",
+      ];
+
+
+      // Base
+      const apiURL ="https://api.polygonscan.com/api";
+      
+      // https://polygonscan.com/apis
+      // kendi api keyini alabilirsin (polygonscan'den)
+      const apiKey = "4G8BE4CPEG56GMMKAUA1WRMPNPZ5MV85N5"; 
+
+      // SFF Main Contract
+      const SFFContractAddr = "0xdf9B4b57865B403e08c85568442f95c26b7896b0";
+      
+      // variables & fantasy
+      var SFFBalance = MTCBalance = Counter = 0;
+      const fadeInSpeed= 1000;
+
+
+      var ReqInterval = null;
+      $(() => {
+       
+        // 1500 ms'de bir istek.
+        // api 1sn'de bir atabilirsin diyor.
+        ReqInterval = setInterval(GetData,1500);
+
+      });
+
+
+
+      GetData = () => {
+        // Liste dolduysa tekrardan request atmak manasız.
+        if(Counter == AddrList.length){
+                  clearInterval(ReqInterval);
+                  return;
+        }
+        // İstek için adres;
+        var CurrentAddr = AddrList[Counter]; // current Adresi
+
+        // variables
+        var para,ondalik,toplamKarakter,tamsayi,cMTCAMount,cSFFAMount;
+
+        // Satır Başlangıcı
+        var rowString = "<tr>";
+            rowString += "<td> Account " + parseInt(Counter+1) + "</td>";
+        
+
+        // SFF İçin
+        const SFFEndpoint = apiURL + "?module=account&action=tokenbalance&contractaddress=" + SFFContractAddr + "&" + "address="+ CurrentAddr + "&tag=latest&apikey=" + apiKey;
+        $.ajax({
+          type:"GET",
+          async:false,
+          url:SFFEndpoint,
+          success:(response)=>  {
+            para =  response.result; // uzun bi sayı
+            ondalik = para.substr(para.length - 18); // virgülle ayırmak için son 18 gerekiyor. (tokenlarda genelde decimal 18)
+            toplamKarakter = para.length; 
+            tamSayi = para.slice(0,toplamKarakter - 18); // 2,5 gibi gibi yapmak içün 
+            cSFFAMount = tamSayi + "." + ondalik; // current SFF Amount (istenilen string)
+            cSFFAMount = parseFloat(cSFFAMount); // matematik için float yapmak lazım
+            SFFBalance += cSFFAMount ; // ee yukarıyı da artırmak şart (toplam balans)
+          },
+        
+        
+        });
+        // SFF Sütunu
+        rowString +="<td>" + cSFFAMount + " $SFF</td>";
+
+        // Matic İçin
+        const MTCEndPoint = apiURL + "?module=account&action=balance&address="+CurrentAddr + "&apikey=" + apiKey;
+
+        $.ajax({
+          type:"GET",
+          url:MTCEndPoint,
+          async:false,
+          success:(response)=>  {
+            // tekrar tekrar açıklama yapmıyorum.
+            para =  response.result;
+            ondalik = para.substr(para.length - 18);
+            toplamKarakter = para.length;
+            tamSayi = para.slice(0,toplamKarakter - 18);
+            cMTCAMount = tamSayi + "." + ondalik; 
+            cMTCAMount = parseFloat(cMTCAMount);
+            MTCBalance += cMTCAMount ;
+          }
+        });
+
+        // MTC Sütunu
+        rowString += "<td>" + cMTCAMount.toFixed(2) + " MATIC</td>";
+        // Satır Sonu
+        rowString += "</tr>";
+
+        // FadeIn fantazileri :)
+        $("table#result > tbody ").append(rowString).end().find("tbody > tr:last-child").hide().fadeIn(fadeInSpeed);
+
+        // Toplam Balanslar;
+        $("#SFFBalance").text( SFFBalance.toFixed(2) + " $SFF").hide().fadeIn(fadeInSpeed);
+        $("#MTCBalance").text( MTCBalance.toFixed(2) + " MATIC").hide().fadeIn(fadeInSpeed);
+
+        Counter ++;
+      };
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  </body>
+</html>
