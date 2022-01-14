@@ -368,7 +368,7 @@
 
             var _this = $(this);
             if (!_this.is("table")) {
-                console.error("Grid yapmak için bir tablo'ya ihtiyacinız var.");
+                console.error("Grid yapmak için bir tablo'ya ihtiyaciniz var.");
                 return;
             }
 
@@ -419,16 +419,9 @@
                 // 1 => 10-19
                 // 2 => 20-29
                 showingData = [];
-                for (let i = currentPage * settings.pageSize; i < (currentPage + 1) * settings.pageSize; i++) {
-                    if (currentPage == 0)
-                        showingData[i] = settings.data[i];
-                    else
-                        showingData[i - settings.pageSize] = settings.data[i];
-                }
-                // array'deki boş objeler siliniyor..;
-                showingData = showingData.filter(value => Object.keys(value).length !== 0);
 
-                console.log(currentSorting, "currentSorting");
+                var maxLength = ((currentPage + 1) * settings.pageSize);
+                showingData = settings.data.slice(currentPage * settings.pageSize, currentPage * settings.pageSize + settings.pageSize);
 
                 if (currentSorting != "sorting_asc")
                     showingData = showingData.sort((a, b) => (a.index > b.index) ? -1 : 0);
@@ -449,7 +442,7 @@
                 if ($(".iPageNavs").length) $(".iPageNavs").remove();
                 var pagingString = `<div class='iPageNavs'>`;
                 var activeStatus = ``;
-                for (let i = 0; i < settings.data.length / settings.pageSize - 1; i++) {
+                for (let i = 0; i < settings.data.length / settings.pageSize; i++) {
                     activeStatus = (currentPage == i) ? ` active` : ``;
                     pagingString += `<a href="#" data-page='${i+1}' class='iPaging${activeStatus}' >${i+1}</a> `;
                 }
@@ -458,7 +451,7 @@
 
                 _this.after(pagingString);
 
-                console.log("sayfalandırma gösterilecek");
+                console.log("sayfalandirma gösterilecek");
             }
 
             // #endregion
@@ -470,7 +463,7 @@
                 $.each(headings, (i, htmlEl) => $(htmlEl).addClass(currentSorting));
             }
 
-            console.log("datasız", settings.data.length);
+            console.log("datasiz", settings.data.length);
             // data gönderilmiş mi gönderilmemiş mi
             if (!settings.data.length) GetTableData();
             // tabloda tbody 'de data olması bekleniyor.
@@ -512,7 +505,7 @@
 
         $(() => {
             $("#result").iGrid({
-                pageSize: 30
+                pageSize: 20
             });
         });
     </script>
