@@ -358,6 +358,7 @@
         // işTeknoloji DataGrid mi cominng...
         $.fn.iGrid = function(options) {
             var defaultSettings = {
+                search: true,
                 orderable: true,
                 data: [],
                 pageSize: 10,
@@ -379,6 +380,8 @@
             var currentSorting = "sorting_asc";
             var showingData = [];
             var currentPage = 0;
+            var currentSearchText = "";
+            var initialData = [];
 
             // #region PRIVATE FUNCTIONS
             init = (page = null) => {
@@ -420,12 +423,11 @@
                 // 2 => 20-29
                 showingData = [];
 
-                var maxLength = ((currentPage + 1) * settings.pageSize);
                 showingData = settings.data.slice(currentPage * settings.pageSize, currentPage * settings.pageSize + settings.pageSize);
 
                 if (currentSorting != "sorting_asc")
                     showingData = showingData.sort((a, b) => (a.index > b.index) ? -1 : 0);
-                console.log(showingData);
+
                 $.each(showingData, (i, obj) => {
                     var tempRow = `<tr> ${obj.html} </tr>`;
                     _this.find("tbody").append(tempRow);
@@ -454,7 +456,28 @@
                 console.log("sayfalandirma gösterilecek");
             }
 
-            // #endregion
+
+            FocusLastChar = (elem) => {
+                    var elemLen = elem.value.length;
+                    // For IE Only
+                    if (document.selection) {
+                        // Set focus
+                        elem.focus();
+                        // Use IE Ranges
+                        var oSel = document.selection.createRange();
+                        // Reset position to 0 & then set at end
+                        oSel.moveStart('character', -elemLen);
+                        oSel.moveStart('character', elemLen);
+                        oSel.moveEnd('character', 0);
+                        oSel.select();
+                    } else if (elem.selectionStart || elem.selectionStart == '0') {
+                        // Firefox/Chrome
+                        elem.selectionStart = elemLen;
+                        elem.selectionEnd = elemLen;
+                        elem.focus();
+                    } // if
+                }
+                // #endregion
 
 
             // sıralanabilir mi?
@@ -465,6 +488,8 @@
 
             console.log("datasiz", settings.data.length);
             // data gönderilmiş mi gönderilmemiş mi
+
+            initialData = settings.data;
             if (!settings.data.length) GetTableData();
             // tabloda tbody 'de data olması bekleniyor.
 
@@ -472,11 +497,6 @@
 
 
             // #region EVENTHANDLERS 
-
-
-
-
-
             AddEventHandlers = () => {
                 if (settings.showPaging) {
                     $("div.iPageNavs").off("click").on("click", "a:not('.active')", (event) => {
@@ -485,6 +505,34 @@
                     });
                 }
 
+                if (settings.search) {
+
+                    if ($(".iInputSearch").length) $(".iInputSearch").remove();
+                    _this.before(`<input type='text' class='iInputSearch' placeholder='Search..' value='${currentSearchText}'/>`);
+                    var input = $(".iInputSearch");
+                    FocusLastChar(input.get(0));
+                    $(".iInputSearch").on("keyup", (e) => {
+                        // filter data;
+                        currentSearchText = $(e.target).val().toLowerCase();
+                        console.log(currentSearchText, "sText");
+                        var filteredData = [];
+                        settings.data.find((obj, i) => {
+                            obj.html = obj.html.toLowerCase();
+                            if (obj.html.includes(currentSearchText)) {
+                                filteredData.push(obj);
+                            }
+                        });
+
+                        settings.data = (!currentSearchText.length) ?
+                            initialData : filteredData;
+
+                        init();
+                    });
+                }
+
+
+
+                // sorting;
                 _this.off("click").on("click", "thead th", (el) => {
                     el = $(el.currentTarget);
                     currentSorting = (el.hasClass("sorting_asc")) ? "sorting_desc" : "sorting_asc";
@@ -504,9 +552,7 @@
 
 
         $(() => {
-            $("#result").iGrid({
-                pageSize: 20
-            });
+            $("#result").iGrid();
         });
     </script>
 
