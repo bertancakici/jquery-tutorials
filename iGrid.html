@@ -517,8 +517,8 @@
                         console.log(currentSearchText, "sText");
                         var filteredData = [];
                         initialData.find((obj, i) => {
-                            obj.html = obj.html.toLowerCase();
-                            if (obj.html.includes(currentSearchText)) {
+                            var tempRowData = obj.html.toLowerCase();
+                            if (tempRowData.includes(currentSearchText)) {
                                 filteredData.push(obj);
                             }
                         });
