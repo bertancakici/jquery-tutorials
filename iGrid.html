@@ -109,7 +109,7 @@
         
         input.iInputSearch:focus-visible,
         input.iInputSearch:focus {
-            border: 0;
+            outline: none;
         }
     </style>
 </head>
@@ -389,6 +389,7 @@
             var defaultSettings = {
                 search: true,
                 orderable: true,
+                viewSizes: [10, 20, 30, 40, 50, 100],
                 data: [],
                 pageSize: 10,
                 showPaging: true
@@ -412,6 +413,7 @@
             var currentSearchText = "";
             var initialData = [];
 
+
             // #region PRIVATE FUNCTIONS
             init = (page = null) => {
                 /*
@@ -427,6 +429,7 @@
 
                 ShowPaging();
 
+                ShowPageSizing();
 
                 AddEventHandlers();
 
@@ -464,7 +467,6 @@
 
             }
 
-            // private functions
             SetSortingDirection = (htmlElement, currentSorting) => {
                 htmlElement.removeAttr("class").addClass(currentSorting);
             }
@@ -487,26 +489,48 @@
 
 
             FocusLastChar = (elem) => {
-                    var elemLen = elem.value.length;
-                    // For IE Only
-                    if (document.selection) {
-                        // Set focus
-                        elem.focus();
-                        // Use IE Ranges
-                        var oSel = document.selection.createRange();
-                        // Reset position to 0 & then set at end
-                        oSel.moveStart('character', -elemLen);
-                        oSel.moveStart('character', elemLen);
-                        oSel.moveEnd('character', 0);
-                        oSel.select();
-                    } else if (elem.selectionStart || elem.selectionStart == '0') {
-                        // Firefox/Chrome
-                        elem.selectionStart = elemLen;
-                        elem.selectionEnd = elemLen;
-                        elem.focus();
-                    } // if
-                }
-                // #endregion
+                var elemLen = elem.value.length;
+                // For IE Only
+                if (document.selection) {
+                    // Set focus
+                    elem.focus();
+                    // Use IE Ranges
+                    var oSel = document.selection.createRange();
+                    // Reset position to 0 & then set at end
+                    oSel.moveStart('character', -elemLen);
+                    oSel.moveStart('character', elemLen);
+                    oSel.moveEnd('character', 0);
+                    oSel.select();
+                } else if (elem.selectionStart || elem.selectionStart == '0') {
+                    // Firefox/Chrome
+                    elem.selectionStart = elemLen;
+                    elem.selectionEnd = elemLen;
+                    elem.focus();
+                } // if
+            }
+
+
+            ShowPageSizing = () => {
+
+                if ($(".iSelectWrapper").length) $(".iSelectWrapper").remove();
+
+
+
+                var wrapper = `<div class='iSelectWrapper'>`;
+                var select = `<select class='iSelect'>`;
+
+                $.each(settings.viewSizes, (i, v) => select += `<option value='${v}' ${v == settings.pageSize ? 'selected': ''} >${v}</option>`);
+                wrapper += select + `</div>`;
+                _this.before(wrapper);
+
+                $("select.iSelect").on("change", (e) => {
+                    settings.pageSize = e.target.value;
+                    init();
+                });
+
+            }
+
+            // #endregion
 
 
             // sıralanabilir mi?
