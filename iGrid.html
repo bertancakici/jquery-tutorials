@@ -516,7 +516,7 @@
                         currentSearchText = $(e.target).val().toLowerCase();
                         console.log(currentSearchText, "sText");
                         var filteredData = [];
-                        settings.data.find((obj, i) => {
+                        initialData.find((obj, i) => {
                             obj.html = obj.html.toLowerCase();
                             if (obj.html.includes(currentSearchText)) {
                                 filteredData.push(obj);
