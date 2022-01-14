@@ -23,7 +23,21 @@
 
     <script>
 
-     
+      // $("#ozetTable").Grid({
+          //data: [{id:}]
+      //});
+      $.fn.Grid = (settings)=> {
+
+
+        var defaultSettings = {
+            data:[],
+        }
+
+
+        return this;
+
+      }
+
 
     const iTech = (selector) =>{
         const self = {
