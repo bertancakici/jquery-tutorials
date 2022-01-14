@@ -19,8 +19,9 @@
         }
         
         table.iTable thead {
-            background: gainsboro;
+            background: #5e35b1;
             font-weight: bold;
+            color: white;
         }
         
         table.iTable td,
@@ -67,10 +68,14 @@
         
         div.iPageNavs .iPaging {
             display: inline-block;
-            background: orange;
+            background: #b39ddb;
             padding: 2px;
             color: white;
             margin-top: 12px;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            border-radius: 50%;
         }
         
         div.iPageNavs .iPaging:hover {
@@ -81,6 +86,30 @@
         div.iPageNavs .active {
             background: blueviolet;
             color: white;
+        }
+        
+        tbody>tr:nth-child(odd) {
+            background: #9575cd;
+        }
+        
+        tbody>tr:nth-child(even) {
+            background: #b39ddb;
+        }
+        
+        input.iInputSearch {
+            margin: 8px 0;
+            border: 1px solid #673ab7;
+            border-radius: 4px;
+            background: #b39ddb;
+        }
+        
+        input.iInputSearch::placeholder {
+            color: #9575cd;
+        }
+        
+        input.iInputSearch:focus-visible,
+        input.iInputSearch:focus {
+            border: 0;
         }
     </style>
 </head>
@@ -373,8 +402,8 @@
                 return;
             }
 
-            // test amaçlı
-            _this.css("border", "1px solid red");
+            // FIRST CODE !!
+            // _this.css("border", "1px solid red");
 
             // tutucular;
             var currentSorting = "sorting_asc";
@@ -508,7 +537,7 @@
                 if (settings.search) {
 
                     if ($(".iInputSearch").length) $(".iInputSearch").remove();
-                    _this.before(`<input type='text' class='iInputSearch' placeholder='Search..' value='${currentSearchText}'/>`);
+                    _this.before(`<input type='text' class='iInputSearch' placeholder='Ara...' value='${currentSearchText}'/>`);
                     var input = $(".iInputSearch");
                     FocusLastChar(input.get(0));
                     $(".iInputSearch").on("keyup", (e) => {
