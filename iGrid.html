@@ -384,6 +384,20 @@
     </div>
 
     <script>
+        // #region  List<ToDo>
+        //      #ajax ile tablo çizimi (request atılırken loading gif de olacak.)
+        //      #thead'e sağ klik ve sütun filtreleme özelliği
+        //      #checkbox'lı tablo?
+        //      #veriler gösterilirken veri tipi (iTech'deki gibi olabilir. Date mesela)
+        //      #callback'ler eklenecek. ( tablo çizildiğinde, row seçildiğinde gibi gibi)
+        //      #daha derli toplu bir yapı oluşturulacak. herşey çok parça halinde ve doğru gitmiyor gibi.
+        //      >> (çalışıyor olması doğru olduğu anlamına gelmiyor.) <<
+        // #endregion
+
+        // #region List<Bug>
+        //      #sayfa numarası değiştirilip, sayfadaki görüntüleme sayısı değişince fazla ise o sayfada kaliyor.
+        // #endregion
+
         // işTeknoloji DataGrid mi cominng...
         $.fn.iGrid = function(options) {
             var defaultSettings = {
@@ -395,13 +409,7 @@
                 showPaging: true
             }
 
-
-
-
             var settings = $.extend({}, defaultSettings, options);
-
-
-
 
             var _this = $(this);
             if (!_this.is("table")) {
@@ -493,7 +501,6 @@
                 console.log("sayfalandirma gösterilecek");
             }
 
-
             FocusLastChar = (elem) => {
                 var elemLen = elem.value.length;
                 // For IE Only
@@ -513,16 +520,11 @@
                     elem.selectionEnd = elemLen;
                     elem.focus();
                 } // if
-
-
             }
-
 
             ShowPageSizing = () => {
 
                 if ($(".iSelectWrapper").length) $(".iSelectWrapper").remove();
-
-
 
                 var wrapper = `<div class='iSelectWrapper'>`;
                 var select = `<select class='iSelect'>`;
@@ -541,24 +543,26 @@
             // #endregion
 
 
+
             // sıralanabilir mi?
             if (settings.orderable) {
                 var headings = _this.find("thead th");
                 $.each(headings, (i, htmlEl) => $(htmlEl).addClass(currentSorting));
             }
 
-            console.log("datasiz", settings.data.length);
             // data gönderilmiş mi gönderilmemiş mi
-
-            initialData = settings.data;
-            if (!settings.data.length) GetTableData();
+            console.log("datasiz", settings.data.length);
+            // data gönderilmemiş ise
             // tabloda tbody 'de data olması bekleniyor.
-
+            if (!settings.data.length) GetTableData();
+            // GetTableData, set etti.
             console.log("eklendikten sonra", settings.data.length);
-
+            // arama kısmı silinince ilk çağrıldığında yüklenen dataları göstermek için
+            initialData = settings.data;
 
             // #region EVENTHANDLERS 
             AddEventHandlers = () => {
+                // Sayfalandırma true ise;
                 if (settings.showPaging) {
                     $("div.iPageNavs").off("click").on("click", "a:not('.active')", (event) => {
                         var tPage = $(event.target).data("page") - 1;
@@ -566,8 +570,8 @@
                     });
                 }
 
+                // Arama  true ise;
                 if (settings.search) {
-
                     if ($(".iInputSearch").length) $(".iInputSearch").remove();
                     _this.before(`<input type='text' class='iInputSearch' placeholder='Ara...' value='${currentSearchText}'/>`);
                     var input = $(".iInputSearch");
@@ -588,8 +592,6 @@
                         settings.data = (!currentSearchText.length) ?
                             initialData : filteredData;
 
-
-
                         init();
 
                     });
@@ -597,7 +599,7 @@
 
 
 
-                // sorting;
+                // header tıklamaları (sıralama için);
                 _this.off("click").on("click", "thead th", (el) => {
                     el = $(el.currentTarget);
                     currentSorting = (el.hasClass("sorting_asc")) ? "sorting_desc" : "sorting_asc";
@@ -605,22 +607,18 @@
                     init();
                 });
 
+                // satıra çift tıklama => ileride kullanılabilir.
                 _this.off("dblclick").on("dblclick", "tbody tr", (e) => {
                     console.log(e);
                     var rowIndex = $(e.currentTarget).index();
                     console.log(showingData[rowIndex]);
                 });
 
-
-
             }
-
-
 
             // #endregion EVENTHANDLERS
 
-
-
+            // iGrid initilizing..
             init();
         }
 
@@ -628,7 +626,6 @@
 
         $(() => {
             $("#result").iGrid();
-
         });
     </script>
 
