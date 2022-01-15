@@ -507,6 +507,8 @@
                     elem.selectionEnd = elemLen;
                     elem.focus();
                 } // if
+
+
             }
 
 
@@ -565,7 +567,8 @@
                     var input = $(".iInputSearch");
                     FocusLastChar(input.get(0));
                     $(".iInputSearch").on("keyup", (e) => {
-                        // filter data;
+                        // Control Tuşuna basılırsa birşey yapma;
+                        if (e.ctrlKey && e.keyCode == 65) return;
                         currentSearchText = $(e.target).val().toLowerCase();
                         console.log(currentSearchText, "sText");
                         var filteredData = [];
@@ -579,7 +582,10 @@
                         settings.data = (!currentSearchText.length) ?
                             initialData : filteredData;
 
+
+
                         init();
+
                     });
                 }
 
@@ -591,6 +597,12 @@
                     currentSorting = (el.hasClass("sorting_asc")) ? "sorting_desc" : "sorting_asc";
                     SetSortingDirection(el, currentSorting);
                     init();
+                });
+
+                _this.off("dblclick").on("dblclick", "tbody tr", (e) => {
+                    console.log(e);
+                    var rowIndex = $(e.currentTarget).index();
+                    console.log(showingData[rowIndex]);
                 });
             }
 
