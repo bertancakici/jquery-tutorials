@@ -393,9 +393,15 @@
                 data: [],
                 pageSize: 10,
                 showPaging: true
-            };
+            }
+
+
+
 
             var settings = $.extend({}, defaultSettings, options);
+
+
+
 
             var _this = $(this);
             if (!_this.is("table")) {
@@ -604,7 +610,11 @@
                     var rowIndex = $(e.currentTarget).index();
                     console.log(showingData[rowIndex]);
                 });
+
+
+
             }
+
 
 
             // #endregion EVENTHANDLERS
@@ -618,6 +628,7 @@
 
         $(() => {
             $("#result").iGrid();
+
         });
     </script>
 
