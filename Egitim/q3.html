@@ -15,7 +15,6 @@
 <body>
 
   <div>
-
   </div>
 
   <!-- Optional JavaScript -->
@@ -39,17 +38,49 @@
 
       var cities = ["İstanbul", "İzmir", "Ankara", "Adana"];
 
-      var ulString = "<ul>";
+      var str = "<select>";
 
-      $.each(cities, function (i, v) {
-
-        ulString += "<li>" + v + "</li>";
-
+      $.each(cities, function (index, value) {
+        str += `<option>${value}</option>`;
       });
 
-      ulString += "</ul>";
-      // console.log(ulString);
-      $("div").html(ulString);
+      str += "</select>";
+      $("div").html(str);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      // var ulString = "<ul>";
+
+      // $.each(cities, function (i, v) {
+
+      //   ulString += "<li>" + v + "</li>";
+
+      // });
+
+      // ulString += "</ul>";
+      // // console.log(ulString);
+      // $("div").html(ulString);
 
 
 
