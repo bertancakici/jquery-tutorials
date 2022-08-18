@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+
+  <title>Hello, world!</title>
+</head>
+
+<body>
+
+  <div>
+
+  </div>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="./jquery-3.6.0.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
+
+
+  <script>
+
+    $(document).ready(function () {
+
+
+      /*
+      1- ulString oluştur.
+      2- foreach döngüsünde her bir isim için li oluştur ve ulString'e ekle.
+      3- foreach bitince ulyi kapatacağız.
+      4- div'e ekleyeceğiz.
+      */
+
+      var cities = ["İstanbul", "İzmir", "Ankara", "Adana"];
+
+      var ulString = "<ul>";
+
+      $.each(cities, function (i, v) {
+
+        ulString += "<li>" + v + "</li>";
+
+      });
+
+      ulString += "</ul>";
+      // console.log(ulString);
+      $("div").html(ulString);
+
+
+
+
+
+
+
+
+
+      var ad = "Serdar";
+      var soyad = "KALKAN";
+
+      // var tamAd = ad + " " + soyad;
+      // var tamAdOzel = `${ad} ${soyad}`;
+
+      // console.log(tamAd);
+      // console.log(tamAdOzel);
+
+
+    });
+
+
+
+
+  </script>
+
+
+</body>
+
+</html>
