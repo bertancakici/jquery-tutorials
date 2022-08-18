@@ -13,9 +13,9 @@
 </head>
 
 <body>
-  <h1 id="baslik1">Başlık 1 Metin1</h1>
-  <h1 class="baslik">Başlık 2 Metin2</h1>
-  <h1 class="baslik">Başlık 3 Metin3 </h1>
+  <h1 id="baslik1">Metin1</h1>
+  <h1 class="heading">Metin2</h1>
+  <h1 class="heading">Metin3 </h1>
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -24,7 +24,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
 
   <script>
-
+    // foreach examples.
     $(document).ready(function () {
 
       // pure js
@@ -33,16 +33,53 @@
       // var b1text = document.getElementById("baslik1").innerText;
       // console.log(b1text);
 
+      // getting value with id
+      // var m1 = $("#baslik1").text();
+      // console.log(m1);
 
       // all h1 elements
-      // var h1elements = $("h1");
+      var h1elements = $("h1");
       // console.log(h1elements);
+      // $.each(h1elements, function (index, htmlElement) {
+      //   debugger;
+      //   // console.log(index);
+      //   // console.log(htmlElement);
+      //   var metin = $(htmlElement).text();
+      //   // console.log(metin);
+      // });
 
-      // getting value with id
-      var m1 = $("#baslik1").text();
-      console.log(m1);
+      // selecting with element classes
+      var headings = $(".heading");
+      console.log(headings);
+      $.each(headings, function (index, htmlElement) {
+        // var txt = $(htmlElement).text();
+        $(htmlElement).text("changed");
+        // console.log(txt);
+      });
 
+      var numbersArray = [10, 20, 30, 40, 50];
+      // console.log(numbersArray[3]);
+      // $.each(numbersArray, function (index, value) {
+      //   // console.log(index);
+      //   // console.log(value);
+      //   // console.log(numbersArray[i]);
+      // });
 
+      var kisi = {
+        ad: "Bertan",
+        soyad: "ÇAKICI",
+        yas: 31,
+        aktifMi: true
+      }
+
+      // $.each(kisi, function (key, value) {
+      //   console.log(key);
+      // });
+
+      // console.log(kisi.ad);
+      // console.log(kisi.soyad);
+      // console.log(kisi.yas);
+      // console.log(kisi.aktifMi);
 
     });
 
