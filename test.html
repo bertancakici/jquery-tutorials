@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <title>Hello, world!</title>
+  <script src="jquery-3-5-1.min.js"></script>
+
+
+</head>
+
+<body>
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h1>selam</h1>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <button type="button" id="saveBtn">Kaydet</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    var HitapHizBirlestirmePage = {
+      Init: () => {
+
+      },
+      Variables: {
+        get FormName() { return this._formName; },
+        set FormName(value) { this._formName = value; },
+        get TableName() { return `#${this._formName}Table` },
+        get GetMethod() {
+          return this._getMethod ?? `HitapYonetim/GetById/${this._formName}`
+        },
+        set GetMethod(value) { this._getMethod = value; },
+        // get formname() { return `${ this.pagename } Form`; },
+        // get tablename() { return `${ this.tablename } Table`; },
+        // set tablename(value) { this.tablename = value },
+      }
+    }
+
+    $(() => {
+      HitapHizBirlestirmePage.Init();
+      HitapHizBirlestirmePage.Variables.FormName = "HitapHizBirlestirme";
+      HitapHizBirlestirmePage.Variables.GetMethod = "XXXX";
+
+      console.log(HitapHizBirlestirmePage.Variables.GetMethod);
+    });
+
+
+  </script>
+
+
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>

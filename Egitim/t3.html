@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+
+  <title>Hello, world!</title>
+</head>
+
+<body>
+  <h1 id="baslik1">Başlık 1 Metin1</h1>
+  <h1 class="baslik">Başlık 2 Metin2</h1>
+  <h1 class="baslik">Başlık 3 Metin3 </h1>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="./jquery-3.6.0.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
+
+  <script>
+
+    $(document).ready(function () {
+
+      // pure js
+      // var h1s = document.getElementsByTagName("h1");
+      // console.log(h1s);
+      // var b1text = document.getElementById("baslik1").innerText;
+      // console.log(b1text);
+
+
+      // all h1 elements
+      // var h1elements = $("h1");
+      // console.log(h1elements);
+
+      // getting value with id
+      var m1 = $("#baslik1").text();
+      console.log(m1);
+
+
+
+    });
+
+
+  </script>
+
+</body>
+
+</html>
