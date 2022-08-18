@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <script src="./jquery-3.6.0.js"></script>
+    <title>iGrid</title>
+    <style>
+        .iTable {
+            width: 100%;
+        }
+        
+        table.iTable thead {
+            background: #5e35b1;
+            font-weight: bold;
+            color: white;
+        }
+        
+        table.iTable td,
+        table.iTable th {
+            padding: 4px;
+        }
+        
+        th.iTblHeading {
+            background-color: hotpink;
+        }
+        
+        th {
+            -webkit-touch-callout: none;
+            /* iOS Safari */
+            -webkit-user-select: none;
+            /* Safari */
+            -khtml-user-select: none;
+            /* Konqueror HTML */
+            -moz-user-select: none;
+            /* Old versions of Firefox */
+            -ms-user-select: none;
+            /* Internet Explorer/Edge */
+            user-select: none;
+        }
+        
+        table.iTable thead .sorting_asc {
+            background-image: url('https://cdn.datatables.net/1.11.3/images/sort_asc.png') !important;
+        }
+        
+        table.iTable thead .sorting_desc {
+            background-image: url('https://cdn.datatables.net/1.11.3/images/sort_desc.png') !important;
+        }
+        
+        table.iTable thead .sorting,
+        table.iTable thead .sorting_asc,
+        table.iTable thead .sorting_desc,
+        table.iTable thead .sorting_asc_disabled,
+        table.iTable thead .sorting_desc_disabled {
+            cursor: pointer;
+            *cursor: hand;
+            background-repeat: no-repeat;
+            background-position: center right;
+        }
+        
+        div.iPageNavs .iPaging {
+            display: inline-block;
+            background: #b39ddb;
+            padding: 2px;
+            color: white;
+            margin-top: 12px;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            border-radius: 50%;
+        }
+        
+        div.iPageNavs .iPaging:hover {
+            color: white;
+            text-decoration: none;
+        }
+        
+        div.iPageNavs .active {
+            background: blueviolet;
+            color: white;
+        }
+        
+        tbody>tr:nth-child(odd) {
+            background: #9575cd;
+        }
+        
+        tbody>tr:nth-child(even) {
+            background: #b39ddb;
+        }
+        
+        input.iInputSearch {
+            margin: 8px 0;
+            border: 1px solid #673ab7;
+            border-radius: 4px;
+            background: #b39ddb;
+        }
+        
+        input.iInputSearch::placeholder {
+            color: #9575cd;
+        }
+        
+        input.iInputSearch:focus-visible,
+        input.iInputSearch:focus {
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row ">
+            <div class="col">
+                <table id="result" class="iTable">
+                    <thead>
+                        <tr>
+                            <th>A Sütunu</th>
+                            <th>B Sütunu</th>
+                            <th>C Sütunu</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>A1</td>
+                            <td>B1</td>
+                            <td>C1</td>
+                        </tr>
+                        <tr>
+                            <td>A2</td>
+                            <td>B2</td>
+                            <td>C2</td>
+                        </tr>
+                        <tr>
+                            <td>A3</td>
+                            <td>B3</td>
+                            <td>C3</td>
+                        </tr>
+                        <tr>
+                            <td>A4</td>
+                            <td>B4</td>
+                            <td>C4</td>
+                        </tr>
+                        <tr>
+                            <td>A5</td>
+                            <td>B5</td>
+                            <td>C5</td>
+                        </tr>
+                        <tr>
+                            <td>A6</td>
+                            <td>B6</td>
+                            <td>C6</td>
+                        </tr>
+                        <tr>
+                            <td>A7</td>
+                            <td>B7</td>
+                            <td>C7</td>
+                        </tr>
+                        <tr>
+                            <td>A8</td>
+                            <td>B8</td>
+                            <td>C8</td>
+                        </tr>
+                        <tr>
+                            <td>A9</td>
+                            <td>B9</td>
+                            <td>C9</td>
+                        </tr>
+                        <tr>
+                            <td>A10</td>
+                            <td>B10</td>
+                            <td>C10</td>
+                        </tr>
+                        <tr>
+                            <td>A11</td>
+                            <td>B11</td>
+                            <td>C11</td>
+                        </tr>
+                        <tr>
+                            <td>A12</td>
+                            <td>B12</td>
+                            <td>C12</td>
+                        </tr>
+                        <tr>
+                            <td>A13</td>
+                            <td>B13</td>
+                            <td>C13</td>
+                        </tr>
+                        <tr>
+                            <td>A14</td>
+                            <td>B14</td>
+                            <td>C14</td>
+                        </tr>
+                        <tr>
+                            <td>A15</td>
+                            <td>B15</td>
+                            <td>C15</td>
+                        </tr>
+                        <tr>
+                            <td>A16</td>
+                            <td>B16</td>
+                            <td>C16</td>
+                        </tr>
+                        <tr>
+                            <td>A17</td>
+                            <td>B17</td>
+                            <td>C17</td>
+                        </tr>
+                        <tr>
+                            <td>A18</td>
+                            <td>B18</td>
+                            <td>C18</td>
+                        </tr>
+                        <tr>
+                            <td>A19</td>
+                            <td>B19</td>
+                            <td>C19</td>
+                        </tr>
+                        <tr>
+                            <td>A20</td>
+                            <td>B20</td>
+                            <td>C20</td>
+                        </tr>
+                        <tr>
+                            <td>A21</td>
+                            <td>B21</td>
+                            <td>C21</td>
+                        </tr>
+                        <tr>
+                            <td>A22</td>
+                            <td>B22</td>
+                            <td>C22</td>
+                        </tr>
+                        <tr>
+                            <td>A23</td>
+                            <td>B23</td>
+                            <td>C23</td>
+                        </tr>
+                        <tr>
+                            <td>A24</td>
+                            <td>B24</td>
+                            <td>C24</td>
+                        </tr>
+                        <tr>
+                            <td>A25</td>
+                            <td>B25</td>
+                            <td>C25</td>
+                        </tr>
+                        <tr>
+                            <td>A26</td>
+                            <td>B26</td>
+                            <td>C26</td>
+                        </tr>
+                        <tr>
+                            <td>A27</td>
+                            <td>B27</td>
+                            <td>C27</td>
+                        </tr>
+                        <tr>
+                            <td>A28</td>
+                            <td>B28</td>
+                            <td>C28</td>
+                        </tr>
+                        <tr>
+                            <td>A29</td>
+                            <td>B29</td>
+                            <td>C29</td>
+                        </tr>
+                        <tr>
+                            <td>A30</td>
+                            <td>B30</td>
+                            <td>C30</td>
+                        </tr>
+                        <tr>
+                            <td>A31</td>
+                            <td>B31</td>
+                            <td>C31</td>
+                        </tr>
+                        <tr>
+                            <td>A32</td>
+                            <td>B32</td>
+                            <td>C32</td>
+                        </tr>
+                        <tr>
+                            <td>A33</td>
+                            <td>B33</td>
+                            <td>C33</td>
+                        </tr>
+                        <tr>
+                            <td>A34</td>
+                            <td>B34</td>
+                            <td>C34</td>
+                        </tr>
+                        <tr>
+                            <td>A35</td>
+                            <td>B35</td>
+                            <td>C35</td>
+                        </tr>
+                        <tr>
+                            <td>A36</td>
+                            <td>B36</td>
+                            <td>C36</td>
+                        </tr>
+                        <tr>
+                            <td>A37</td>
+                            <td>B37</td>
+                            <td>C37</td>
+                        </tr>
+                        <tr>
+                            <td>A38</td>
+                            <td>B38</td>
+                            <td>C38</td>
+                        </tr>
+                        <tr>
+                            <td>A39</td>
+                            <td>B39</td>
+                            <td>C39</td>
+                        </tr>
+                        <tr>
+                            <td>A40</td>
+                            <td>B40</td>
+                            <td>C40</td>
+                        </tr>
+                        <tr>
+                            <td>A41</td>
+                            <td>B41</td>
+                            <td>C41</td>
+                        </tr>
+                        <tr>
+                            <td>A42</td>
+                            <td>B42</td>
+                            <td>C42</td>
+                        </tr>
+                        <tr>
+                            <td>A43</td>
+                            <td>B43</td>
+                            <td>C43</td>
+                        </tr>
+                        <tr>
+                            <td>A44</td>
+                            <td>B44</td>
+                            <td>C44</td>
+                        </tr>
+                        <tr>
+                            <td>A45</td>
+                            <td>B45</td>
+                            <td>C45</td>
+                        </tr>
+                        <tr>
+                            <td>A46</td>
+                            <td>B46</td>
+                            <td>C46</td>
+                        </tr>
+                        <tr>
+                            <td>A47</td>
+                            <td>B47</td>
+                            <td>C47</td>
+                        </tr>
+                        <tr>
+                            <td>A48</td>
+                            <td>B48</td>
+                            <td>C48</td>
+                        </tr>
+                        <tr>
+                            <td>A49</td>
+                            <td>B49</td>
+                            <td>C49</td>
+                        </tr>
+                        <tr>
+                            <td>A50</td>
+                            <td>B50</td>
+                            <td>C50</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // #region  List<ToDo>
+        //      #ajax ile tablo çizimi (request atılırken loading gif de olacak.)
+        //      #thead'e sağ klik ve sütun filtreleme özelliği
+        //      #checkbox'lı tablo?
+        //      #veriler gösterilirken veri tipi (iTech'deki gibi olabilir. Date mesela)
+        //      #callback'ler eklenecek. ( tablo çizildiğinde, row seçildiğinde gibi gibi)
+        //      #daha derli toplu bir yapı oluşturulacak. herşey çok parça halinde ve doğru gitmiyor gibi.
+        //      >> (çalışıyor olması doğru olduğu anlamına gelmiyor.) <<
+        // #endregion
+
+        // #region List<Bug>
+        //      #sayfa numarası değiştirilip, sayfadaki görüntüleme sayısı değişince fazla ise o sayfada kaliyor.
+        // #endregion
+
+        // işTeknoloji DataGrid mi cominng...
+        $.fn.iGrid = function(options) {
+            var defaultSettings = {
+                search: true,
+                orderable: true,
+                viewSizes: [10, 20, 30, 40, 50, 100],
+                data: [],
+                pageSize: 10,
+                showPaging: true
+            }
+
+            var settings = $.extend({}, defaultSettings, options);
+
+            var _this = $(this);
+            if (!_this.is("table")) {
+                console.error("Grid yapmak için bir tablo'ya ihtiyaciniz var.");
+                return;
+            }
+
+            // FIRST CODE !!
+            // _this.css("border", "1px solid red");
+
+            // tutucular;
+            var currentSorting = "sorting_asc";
+            var showingData = [];
+            var currentPage = 0;
+            var currentSearchText = "";
+            var initialData = [];
+
+
+            // #region PRIVATE FUNCTIONS
+            init = (page = null) => {
+                /*
+                  1- Satırlar silinecek
+                  2- Seçilen sayfa ya ait veriler gösterilecek
+                  3- 
+                */
+                if (page != null)
+                    currentPage = page;
+
+                SetTableData();
+
+
+                ShowPaging();
+
+                ShowPageSizing();
+
+                AddEventHandlers();
+
+            }
+
+            GetTableData = () => {
+                console.log("data gönderilmemiş, datalar ekleniyor..");
+                var tblRows = _this.find("tbody tr");
+                $.each(tblRows, (i, htmlEl) => {
+                    var tempData = {
+                        index: i,
+                        html: $(htmlEl).html().trim()
+                    }
+                    settings.data.push(tempData);
+                });
+            }
+
+            SetTableData = () => {
+                console.log(currentPage + 1, "currentPAGE");
+                _this.find("tbody tr").remove();
+                // 0 => 0-9
+                // 1 => 10-19
+                // 2 => 20-29
+                showingData = [];
+
+                showingData = settings.data.slice(currentPage * settings.pageSize, currentPage * settings.pageSize + settings.pageSize);
+
+                if (currentSorting != "sorting_asc")
+                    showingData = showingData.sort((a, b) => (a.index > b.index) ? -1 : 0);
+
+                $.each(showingData, (i, obj) => {
+                    var tempRow = `<tr> ${obj.html} </tr>`;
+                    _this.find("tbody").append(tempRow);
+                });
+
+            }
+
+            SetSortingDirection = (htmlElement, currentSorting) => {
+                htmlElement.removeAttr("class").addClass(currentSorting);
+            }
+
+            ShowPaging = () => {
+                if ($(".iPageNavs").length) $(".iPageNavs").remove();
+                var pagingString = `<div class='iPageNavs'>`;
+                var activeStatus = ``;
+                for (let i = 0; i < settings.data.length / settings.pageSize; i++) {
+                    activeStatus = (currentPage == i) ? ` active` : ``;
+                    pagingString += `<a href="#" data-page='${i+1}' class='iPaging${activeStatus}' >${i+1}</a> `;
+                }
+
+                pagingString += `</div>`;
+
+                _this.after(pagingString);
+
+                console.log("sayfalandirma gösterilecek");
+            }
+
+            FocusLastChar = (elem) => {
+                var elemLen = elem.value.length;
+                // For IE Only
+                if (document.selection) {
+                    // Set focus
+                    elem.focus();
+                    // Use IE Ranges
+                    var oSel = document.selection.createRange();
+                    // Reset position to 0 & then set at end
+                    oSel.moveStart('character', -elemLen);
+                    oSel.moveStart('character', elemLen);
+                    oSel.moveEnd('character', 0);
+                    oSel.select();
+                } else if (elem.selectionStart || elem.selectionStart == '0') {
+                    // Firefox/Chrome
+                    elem.selectionStart = elemLen;
+                    elem.selectionEnd = elemLen;
+                    elem.focus();
+                } // if
+            }
+
+            ShowPageSizing = () => {
+
+                if ($(".iSelectWrapper").length) $(".iSelectWrapper").remove();
+
+                var wrapper = `<div class='iSelectWrapper'>`;
+                var select = `<select class='iSelect'>`;
+
+                $.each(settings.viewSizes, (i, v) => select += `<option value='${v}' ${v == settings.pageSize ? 'selected': ''} >${v}</option>`);
+                wrapper += select + `</div>`;
+                _this.before(wrapper);
+
+                $("select.iSelect").on("change", (e) => {
+                    settings.pageSize = e.target.value;
+                    init();
+                });
+
+            }
+
+            // #endregion
+
+
+
+            // sıralanabilir mi?
+            if (settings.orderable) {
+                var headings = _this.find("thead th");
+                $.each(headings, (i, htmlEl) => $(htmlEl).addClass(currentSorting));
+            }
+
+            // data gönderilmiş mi gönderilmemiş mi
+            console.log("datasiz", settings.data.length);
+            // data gönderilmemiş ise
+            // tabloda tbody 'de data olması bekleniyor.
+            if (!settings.data.length) GetTableData();
+            // GetTableData, set etti.
+            console.log("eklendikten sonra", settings.data.length);
+            // arama kısmı silinince ilk çağrıldığında yüklenen dataları göstermek için
+            initialData = settings.data;
+
+            // #region EVENTHANDLERS 
+            AddEventHandlers = () => {
+                // Sayfalandırma true ise;
+                if (settings.showPaging) {
+                    $("div.iPageNavs").off("click").on("click", "a:not('.active')", (event) => {
+                        var tPage = $(event.target).data("page") - 1;
+                        init(tPage);
+                    });
+                }
+
+                // Arama  true ise;
+                if (settings.search) {
+                    if ($(".iInputSearch").length) $(".iInputSearch").remove();
+                    _this.before(`<input type='text' class='iInputSearch' placeholder='Ara...' value='${currentSearchText}'/>`);
+                    var input = $(".iInputSearch");
+                    FocusLastChar(input.get(0));
+                    $(".iInputSearch").on("keyup", (e) => {
+                        // Control Tuşuna basılırsa birşey yapma;
+                        if (e.ctrlKey && e.keyCode == 65) return;
+                        currentSearchText = $(e.target).val().toLowerCase();
+                        console.log(currentSearchText, "sText");
+                        var filteredData = [];
+                        initialData.find((obj, i) => {
+                            var tempRowData = obj.html.toLowerCase();
+                            if (tempRowData.includes(currentSearchText)) {
+                                filteredData.push(obj);
+                            }
+                        });
+
+                        settings.data = (!currentSearchText.length) ?
+                            initialData : filteredData;
+
+                        init();
+
+                    });
+                }
+
+
+
+                // header tıklamaları (sıralama için);
+                _this.off("click").on("click", "thead th", (el) => {
+                    el = $(el.currentTarget);
+                    currentSorting = (el.hasClass("sorting_asc")) ? "sorting_desc" : "sorting_asc";
+                    SetSortingDirection(el, currentSorting);
+                    init();
+                });
+
+                // satıra çift tıklama => ileride kullanılabilir.
+                _this.off("dblclick").on("dblclick", "tbody tr", (e) => {
+                    console.log(e);
+                    var rowIndex = $(e.currentTarget).index();
+                    console.log(showingData[rowIndex]);
+                });
+
+            }
+
+            // #endregion EVENTHANDLERS
+
+            // iGrid initilizing..
+            init();
+        }
+
+
+
+        $(() => {
+            $("#result").iGrid();
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>
