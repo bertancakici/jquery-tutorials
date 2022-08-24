@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+
+  <title>Hello, world!</title>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="row" id="insertHere">
+      <div class="col-md-12">
+        <select class="custom-select" id="urunSelect">
+
+        </select>
+      </div>
+    </div>
+  </div>>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="./jquery-3.6.0.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
+  <script>
+
+
+
+    $(() => {
+
+      $.ajax({
+        url: "https://localhost:44323/api/App/GetAll/ShelfDefinition",
+        method: "GET",
+        async: false,
+        success: response => {
+          console.log(response);
+          $.each(response, (i, obj) => {
+            console.log(obj);
+            // var optionString = `<option value="${obj.id}"> ${obj.name} </option>`;
+            // $("#urunSelect").append(optionString);
+          });
+        },
+        error: error => console.log(error)
+      });
+
+    });
+
+
+
+
+
+
+
+
+  </script>
+</body>
+
+</html>
