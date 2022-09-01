@@ -91,16 +91,16 @@
         url: "https://jsonplaceholder.typicode.com/posts/1",
         method: "GET",
         async: false,
-        success: response => {
-          $.each(response, (k, v) => {
+        success: obj => {
+          $.each(obj, (k, v) => {
             // id, userId, title, body
             $("#" + k).val(v);
           });
-          // $("#id").val(response.id);
-          // $("#userId").val(response.userId);
-          // $("#title").val(response.title);
-          // $("#body").val(response.body);
-          // console.log(response);
+          // $("#id").val(obj.id);
+          // $("#userId").val(obj.userId);
+          // $("#title").val(obj.title);
+          // $("#body").val(obj.body);
+          // console.log(obj);
         }
 
       });
