@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+
+  <title>Hello, world!</title>
+  <style>
+    .active {
+      background-color: brown;
+    }
+
+    table {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      height: 400px;
+      width: 400px;
+      margin-top: -200px;
+      margin-left: -200px;
+    }
+
+    td {
+      text-align: center;
+      border: 1px solid black;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Üretilen Random Sayi: <span id="rnd"></span></h1>
+  <br>
+  <h1>Tıklanan Doğru Mu: <span id="check"></span></h1>
+  <table>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </table>
+
+
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="./jquery-3.6.0.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
+  <script>
+
+    var sonUretilenSayi = -1;
+    function UretVeEkle() {
+
+      var randomSayi = Math.floor((Math.random() * 8) + 1);
+      console.log("üretilen sayi", randomSayi);
+      if (sonUretilenSayi != randomSayi) {
+        $("#rnd").text(randomSayi).css("color", "blue");
+        $("td").removeClass("active").eq(randomSayi).addClass("active");
+        sonUretilenSayi = randomSayi;
+      } else {
+        console.log("ayni sayi uretildi");
+        UretVeEkle();
+      }
+    }
+    $(function () {
+      // setInterval(() => {
+      UretVeEkle();
+      // }, 250);
+
+      $("td").click(event => {
+        var isActive = $(event.currentTarget).hasClass("active");
+        if (isActive) {
+          $("#check").css("color", "green").text(isActive);
+          UretVeEkle();
+        } else {
+          $("#check").css("color", "red").text(isActive);
+
+        }
+      });
+
+      // $("td").eq(8).addClass("active");
+
+
+    });
+
+  </script>
+</body>
+
+</html>
