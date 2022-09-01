@@ -49,7 +49,7 @@
   <br>
   <h1>Form 2 __</h1>
   <form action="" id="frm2" name="frm2">
-    <input type="hidden" id="kullaniciId" value="5">
+    <input type="hidden" id="kullaniciId" value="5" required>
     <br>
     <label>Adres :</label>
     <br>
@@ -134,7 +134,7 @@
       btn.click(event => {
         var data = getFormData("frm1");
         console.log(data);
-        ajaxPost("domain.com/addUser", data);
+        // ajaxPost("domain.com/addUser", data);
 
 
 
