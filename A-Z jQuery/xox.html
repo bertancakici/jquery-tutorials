@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+
+
+
+  <title>Hello, world!</title>
+  <style>
+    .active {
+      background-color: brown;
+    }
+
+    table {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      height: 400px;
+      width: 400px;
+      margin-top: -200px;
+      margin-left: -200px;
+    }
+
+    td {
+      text-align: center;
+      border: 1px solid black;
+    }
+
+
+    .player-0 {
+      background-image: url(./0.png);
+      background-size: contain;
+    }
+
+    .player-1 {
+      background-image: url(./1.png);
+      background-size: contain;
+    }
+  </style>
+</head>
+
+<body>
+
+  <br>
+  <label>Current PlayerId: <span id="currentPlayerId"></span></h1>
+    <br>
+    <label>Current PlayerName: <span id="currentPlayer"></span></h1>
+      <br>
+      <table>
+        <tr>
+          <td id="0"></td>
+          <td id="1"></td>
+          <td id="2"></td>
+        </tr>
+        <tr>
+          <td id="3"></td>
+          <td id="4"></td>
+          <td id="5"></td>
+        </tr>
+        <tr>
+          <td id="6"></td>
+          <td id="7"></td>
+          <td id="8"></td>
+        </tr>
+      </table>
+
+      <!-- Modal -->
+      <div class="modal fade" id="playersModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">XOX</h5>
+            </div>
+            <div class="modal-body">
+              <div>
+                <h1>Kazanan Oyuncu : <span id="winner"></span></h1>
+              </div>
+              <form autocomplete="off">
+                <div class="form-group">
+                  <label for="playerOne">Oyuncu 1 Adı :</label>
+                  <input type="text" class="form-control" id="playerOne" value="Bertan">
+                </div>
+                <div class="form-group">
+                  <label for="playerTwo">Oyuncu 2 Adı :</label>
+                  <input type="text" class="form-control" id="playerTwo" value="Onder">
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button id="btnSave" type="button" class="btn btn-primary">Kaydet</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Optional JavaScript -->
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="./jquery-3.6.0.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"></script>
+      <script>
+
+        var players = [];
+        var p1, p2, currentPlayerId, currentPlayerName;
+
+        YatayKontrol = (kolNu, playerClass) => {
+
+          var k1 = false, k2 = false, k3 = false;
+          if (0 <= kolNu && kolNu <= 2) {
+            k1 = $("td").eq(0).hasClass(playerClass);
+            k2 = $("td").eq(1).hasClass(playerClass);
+            k3 = $("td").eq(2).hasClass(playerClass);
+          }
+
+          if (3 <= kolNu && kolNu <= 5) {
+            k1 = $("td").eq(3).hasClass(playerClass);
+            k2 = $("td").eq(4).hasClass(playerClass);
+            k3 = $("td").eq(5).hasClass(playerClass);
+          }
+
+          if (6 <= kolNu && kolNu <= 8) {
+            k1 = $("td").eq(6).hasClass(playerClass);
+            k2 = $("td").eq(7).hasClass(playerClass);
+            k3 = $("td").eq(8).hasClass(playerClass);
+          }
+          return (k1 && k2 && k3);
+
+        }
+
+        DikeyKontrol = (kolNu, playerClass) => {
+          var k1 = false, k2 = false, k3 = false;
+          if (kolNu == 0 || kolNu == 3 || kolNu == 6) {
+            k1 = $("td").eq(0).hasClass(playerClass);
+            k2 = $("td").eq(3).hasClass(playerClass);
+            k3 = $("td").eq(6).hasClass(playerClass);
+          }
+
+          if (kolNu == 1 || kolNu == 4 || kolNu == 7) {
+            k1 = $("td").eq(1).hasClass(playerClass);
+            k2 = $("td").eq(4).hasClass(playerClass);
+            k3 = $("td").eq(7).hasClass(playerClass);
+          }
+
+          if (kolNu == 2 || kolNu == 5 || kolNu == 8) {
+            k1 = $("td").eq(2).hasClass(playerClass);
+            k2 = $("td").eq(5).hasClass(playerClass);
+            k3 = $("td").eq(8).hasClass(playerClass);
+          }
+
+          return (k1 && k2 && k3);
+
+        }
+
+        CaprazKontrol = (kolNu, playerClass) => {
+          var k1 = false, k2 = false, k3 = false;
+          if (kolNu == 0 || kolNu == 4 || kolNu == 8) {
+            k1 = $("td").eq(0).hasClass(playerClass);
+            k2 = $("td").eq(4).hasClass(playerClass);
+            k3 = $("td").eq(8).hasClass(playerClass);
+          }
+
+          if (kolNu == 2 || kolNu == 4 || kolNu == 6) {
+            k1 = $("td").eq(2).hasClass(playerClass);
+            k2 = $("td").eq(4).hasClass(playerClass);
+            k3 = $("td").eq(6).hasClass(playerClass);
+          }
+
+          return (k1 && k2 && k3);
+
+
+        }
+
+        KontrolEt = (colNum, playerClass) => {
+          console.log(playerClass);
+          var durum = false;
+          // console.log(colNum, "tiklanan kolon");
+          colNum = parseInt(colNum);
+
+          durum = YatayKontrol(colNum, playerClass);
+          // console.log(durum);
+          if (durum) return durum;
+
+          durum = DikeyKontrol(colNum, playerClass);
+          // console.log(durum);
+          if (durum) return durum;
+
+          if (colNum % 2 == 0) {
+            durum = CaprazKontrol(colNum, playerClass);
+            return durum;
+          }
+        }
+
+
+        $(() => {
+
+
+          $("#playersModal").modal("show");
+
+          $("#btnSave").click(() => {
+            // console.log("kaydet butonuna tikladin");
+            players = [];
+
+            p1 = $("#playerOne").val();
+            p2 = $("#playerTwo").val();
+
+            players.push(p1);
+            players.push(p2);
+
+
+            var random = Math.floor(Math.random() * 2);
+            currentPlayerId = random;
+            $("#currentPlayerId").text(currentPlayerId);
+            currentPlayerName = players[random];
+            $("#currentPlayer").text(currentPlayerName);
+            $("form").hide();
+            $("#playersModal").modal("hide");
+          });
+
+          $("td").click(event => {
+            var clickedTd = $(event.currentTarget);
+            if (clickedTd.hasClass("player-0") || clickedTd.hasClass("player-1")) {
+              console.log("bu alana önceden tıklanmış");
+              return;
+            }
+
+            clickedTd.addClass("player-" + currentPlayerId);
+            var sonuc = KontrolEt(clickedTd.attr("id"), "player-" + currentPlayerId);
+            if (sonuc) {
+              $("#winner").text(currentPlayerName);
+              window.location.reload();
+            }
+
+            currentPlayerId = (currentPlayerId) ? 0 : 1;
+            $("#currentPlayerId").text(currentPlayerId);
+            $("#currentPlayer").text(players[currentPlayerId]);
+
+
+          });
+
+
+
+        });
+
+
+      </script>
+</body>
+
+</html>
